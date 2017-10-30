@@ -30,3 +30,23 @@ CountGrade.foreach(println)
 --problem 2.2
 -- average of the each student 
 val AverageRdd = tuple.map(x=> ((x._3,x._1),(x._4+x._5)).groupByKey.map(x => (x._1,(x._2.sum.toDouble/(x._2.size*2))))
+
+
+--problem 2.3.
+--avrrage of  the each student across all grades
+val AvgScore = TupleRdd.map(x=> ((x._1,x._2),(x._4+x._5))).groupByKey.map(x=> (x._1,(x._2.sum.toDouble/(x._2.size*2)))).sortByKey()
+
+--problem 2.4
+val AvgScore = TupleRdd.map(x=> ((x._1,x._2,x._3),(x._4+x._5))).groupByKey.map(x=> (x._1,(x._2.sum.toDouble/(x._2.size*2)))).sortByKey()
+
+
+
+
+
+--problem 3
+val Avg1 = TupleRdd.map(x => (x._1,(x._4+x._5))).groupByKey.map(x=>(x._1,(x._2.sum.toDouble/(x._2.size*2))))
+
+val Avg2 = TupleRdd.map(x => ((x._1,x._3),(x._4+x._5))).groupByKey.map(x=>(x._1._1,(x._2.sum.toDouble/(x._2.size*2))))
+
+val intersection = Avg2.intersection(Avg1).collect
+
